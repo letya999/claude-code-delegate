@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "claude-code-delegate",
+      "type": "archive",
+      "description": "Run Claude Code CLI as a headless delegate. Use when the user names Claude Code or claude, says \"ask Claude\", wants a Claude second opinion, or compares coding agents. Do NOT use for interactive sessions, other CLIs, or tasks not meant for delegation.",
+      "url": "https://raw.githubusercontent.com/letya999/claude-code-delegate/dev/dist/claude-code-delegate.zip",
+      "digest": "sha256:c795cbb23dfd07d177ef64c72e5cc24521b186809b390cb727e76c82f2b31e9a",
+      "repository": "https://github.com/letya999/claude-code-delegate",
+      "license": "MIT",
+      "publisher": "Artem Letyushev"
+    }
+  ]
+}
