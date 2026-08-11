@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Code Delegate"
+  short_description: "Delegate tasks to Claude Code headlessly"
+  default_prompt: "Use $claude-code-delegate to delegate this task to Claude Code headlessly and return the verified result."
