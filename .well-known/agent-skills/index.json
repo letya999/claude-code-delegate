@@ -6,7 +6,7 @@
       "type": "archive",
       "description": "Run Claude Code CLI as a headless delegate. Use when the user names Claude Code or claude, says \"ask Claude\", wants a Claude second opinion, or compares coding agents. Do NOT use for interactive sessions, other CLIs, or tasks not meant for delegation.",
       "url": "https://raw.githubusercontent.com/letya999/claude-code-delegate/dev/dist/claude-code-delegate.zip",
-      "digest": "sha256:c795cbb23dfd07d177ef64c72e5cc24521b186809b390cb727e76c82f2b31e9a",
+      "digest": "sha256:0a083794994fef1f6f31cd24661ae13bf97fc381877e310763afec1eb7987f81",
       "repository": "https://github.com/letya999/claude-code-delegate",
       "license": "MIT",
       "publisher": "Artem Letyushev"
