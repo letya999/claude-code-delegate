@@ -1,4 +1,13 @@
 {
   "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
-  "skills": ["claude-code-delegate"]
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Delegates",
+      "description": "Run Claude Code CLI as a headless delegate.",
+      "skills": [
+        "claude-code-delegate"
+      ]
+    }
+  ]
 }
