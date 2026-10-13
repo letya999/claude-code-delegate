@@ -30,7 +30,7 @@ Read [runtime-setup.md](references/runtime-setup.md) before invoking the wrapper
 ## Wrapper behavior
 
 - `delegate_claude.py` invokes `claude` directly, never through a shell, and supports `CLAUDE_BIN` for an explicit executable path.
-- It uses Claude Code headless mode with `-p` and `--output-format json`; the project is set as both the subprocess working directory and an allowed `--add-dir`. It adds `--dangerously-skip-permissions` only when `--always-approve` is requested, otherwise it runs with the default permission mode.
+- It uses Claude Code headless mode with `-p` and `--output-format json`; the project is set as both the subprocess working directory and an allowed `--add-dir`. It passes `--permission-mode` when requested and adds `--dangerously-skip-permissions` only when `--always-approve` is requested; those flags are mutually exclusive.
 - It writes stdout, stderr, and a small result manifest to a temporary output directory, then prints the final captured response as JSON. The parsed `result` text from Claude's JSON envelope is surfaced under `response`.
 - It returns nonzero for missing Claude, an invalid project directory, timeout, failed process, or malformed JSON. Do not hide these failures.
 - Prefer a one-shot invocation. Use `--session-id` or `--resume` only when the user explicitly asks for a resumable Claude session.

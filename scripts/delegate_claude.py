@@ -76,9 +76,12 @@ def main() -> int:
     parser.add_argument("--task", required=True, help="Task to delegate")
     parser.add_argument("--timeout", default="45m", help="Timeout, e.g. 90s, 45m, 2h")
     parser.add_argument("--model", help="Optional Claude model")
-    parser.add_argument("--session-id", help="Optional session id (uuid) for a resumable run")
-    parser.add_argument("--resume", help="Optional session id to resume")
-    parser.add_argument("--always-approve", action="store_true", help="Bypass Claude permission checks (--dangerously-skip-permissions)")
+    session = parser.add_mutually_exclusive_group()
+    session.add_argument("--session-id", help="Optional session id (uuid) for a resumable run")
+    session.add_argument("--resume", help="Optional session id to resume")
+    permissions = parser.add_mutually_exclusive_group()
+    permissions.add_argument("--always-approve", action="store_true", help="Bypass Claude permission checks (--dangerously-skip-permissions)")
+    permissions.add_argument("--permission-mode", help="Pass an explicit Claude permission mode")
     parser.add_argument("--output-dir", help="Directory for captured output")
     args = parser.parse_args()
 
@@ -116,6 +119,8 @@ def main() -> int:
         command.extend(["--session-id", args.session_id])
     if args.resume:
         command.extend(["--resume", args.resume])
+    if args.permission_mode:
+        command.extend(["--permission-mode", args.permission_mode])
     if args.always_approve:
         command.append("--dangerously-skip-permissions")
 

@@ -8,6 +8,7 @@ This skill follows Anthropic's Claude Code CLI (verified against `claude` 2.1.x 
 - Streaming alternative: `--output-format stream-json` (NDJSON events; needs `--verbose`)
 - Model selection: `--model <MODEL>`
 - Resumable sessions: `--session-id <UUID>` to pin a session, `--resume <ID>` or `--continue` to resume
+- Permission policy: `--permission-mode <MODE>` for an explicit mode; the wrapper keeps it mutually exclusive with `--always-approve`
 - Automated execution: `--dangerously-skip-permissions` (bypass all permission checks) or `--permission-mode acceptEdits`
 - Restrict tools: `--allowedTools` / `--disallowedTools`
 - Load MCP config: `--mcp-config <FILE>` (add `--strict-mcp-config` to use only those servers)

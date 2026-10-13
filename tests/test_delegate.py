@@ -81,6 +81,28 @@ class TestRunBounded(unittest.TestCase):
 
 
 class TestMainCli(unittest.TestCase):
+    def test_forwards_model_and_permission_mode(self) -> None:
+        mod = _load_module()
+        completed = subprocess.CompletedProcess([], 0, '{"result":"ok"}', "")
+        with tempfile.TemporaryDirectory() as output_dir, mock.patch.object(mod, "find_claude", return_value=sys.executable), mock.patch.object(mod, "run_bounded", return_value=completed) as run, mock.patch.object(sys, "argv", ["delegate", "--cwd", str(SKILL_ROOT), "--task", "test", "--model", "gpt-test", "--permission-mode", "manual", "--output-dir", output_dir]):
+            self.assertEqual(mod.main(), 0)
+            command = run.call_args.args[0]
+            self.assertIn(["--model", "gpt-test"], [command[i:i + 2] for i in range(len(command) - 1)])
+            self.assertIn(["--permission-mode", "manual"], [command[i:i + 2] for i in range(len(command) - 1)])
+            self.assertNotIn("--dangerously-skip-permissions", command)
+
+    def test_rejects_conflicting_permission_flags(self) -> None:
+        mod = _load_module()
+        with mock.patch.object(sys, "argv", ["delegate", "--cwd", str(SKILL_ROOT), "--task", "test", "--always-approve", "--permission-mode", "manual"]), self.assertRaises(SystemExit) as raised:
+            mod.main()
+        self.assertEqual(raised.exception.code, 2)
+
+    def test_rejects_conflicting_session_flags(self) -> None:
+        mod = _load_module()
+        with mock.patch.object(sys, "argv", ["delegate", "--cwd", str(SKILL_ROOT), "--task", "test", "--session-id", "one", "--resume", "two"]), self.assertRaises(SystemExit) as raised:
+            mod.main()
+        self.assertEqual(raised.exception.code, 2)
+
     def test_timeout_writes_manifest(self) -> None:
         mod = _load_module()
         with tempfile.TemporaryDirectory() as output_dir, mock.patch.object(mod, "find_claude", return_value=sys.executable), mock.patch.object(mod, "run_bounded", side_effect=subprocess.TimeoutExpired([], 1, output=b"partial", stderr=b"warning")), mock.patch.object(sys, "argv", ["delegate", "--cwd", str(SKILL_ROOT), "--task", "test", "--output-dir", output_dir]):
